@@ -1,0 +1,52 @@
+﻿@page
+@model UniversityDatabaseManagementWebApp.Pages.Courses.UpdateModel
+@{
+}
+
+<h2 class="mb-3 text-center text-light">Update Subject</h2>
+
+@if (!Model.errorMessage.Equals(""))
+{
+    <h6><strong>@Model.errorMessage</strong></h6>
+}
+
+<form class="container" method="POST">
+    <input type="hidden" name="id" value="@Model.courseDTO.Id" />
+    <div class="row mb-3">
+        <label for="description" class="col-md-1 col-form-label">Description</label>
+        <div>
+            <input type="text" class="form-control" name="description" id="description" placeholder="Enter Description" value="@Model.courseDTO.Description" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="teacherid" class="col-md-1 col-form-label">TeacherID</label>
+        <div>
+
+            @{
+                List<SelectListItem> listItems = new List<SelectListItem>();
+                @foreach (var teacher in Model.teachers)
+                {
+                    listItems.Add(new SelectListItem
+                {
+                    Text = @teacher.Firstname + " " + teacher.Lastname,
+                    Value = @teacher.Id.ToString()
+                });
+
+                }
+            }
+
+            @Html.DropDownList("teacherid", listItems, new { @class = "form-control" })
+
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="offset-md-1 col-md-3 d-grid">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+
+        <div class="offset-md-1 col-md-3 d-grid">
+            <a href="/Courses/Index" role="button" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+
+</form>

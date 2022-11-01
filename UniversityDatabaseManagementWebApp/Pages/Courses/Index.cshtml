@@ -1,0 +1,47 @@
+﻿@page
+@model UniversityDatabaseManagementWebApp.Pages.Courses.IndexModel
+@{
+}
+
+<h2 class="text-center text-decoration-underline text-light">SUBJECTS</h2>
+
+<a class="btn btn-outline-warning fw-bold btn-sm" href="/Courses/Create">Add Subject</a>
+
+<table class="table table-dark table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>TeachersID</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+        </tr>
+    </thead>
+    <tbdody>
+
+        @if (Model.courses is not null)
+        {
+            @foreach (var course in Model.courses)
+            {
+                <tr>
+                    <td>@course.Id</td>
+                    <td>@course.Description</td>
+                    <td>@course.TeacherId</td>
+                    @{
+                        var teacher = Model.teachers.Where(x => x.Id == course.TeacherId).First();
+                     }
+                    <td>@teacher.Firstname</td>
+                    <td>@teacher.Lastname</td>
+
+                    <td>
+                        <a class="btn btn-outline-info fw-bold btn-sn"
+                        href="/Courses/Update?id=@course.Id">Update</a>
+
+                        <a class="btn btn-outline-danger fw-bold btn-sn" onclick="return confirm('This action will delete the specific and all related entries. Are you sure you want to proceed?')" href="/Courses/Delete?id=@course.Id">Delete</a>
+                    </td>
+                </tr>
+
+            }
+        }
+    </tbdody>
+</table>

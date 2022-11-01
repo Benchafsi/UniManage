@@ -1,0 +1,67 @@
+﻿@page
+@model UniversityDatabaseManagementWebApp.Pages.StudentsCourses.CreateModel
+@{
+}
+
+<h2 class="text-light text-center mb-3">Add Enrollment</h2>
+
+@if (!Model.errorMessage.Equals(""))
+{
+    <h6><strong>@Model.errorMessage</strong></h6>
+}
+
+<form class="container" method="POST">
+    <div class="row mb-3">
+        <label for="studentid" class="col-md-1 col-form-label">Undergraduate:</label>
+        <div>
+
+            @{
+                List<SelectListItem> listAllItems = new List<SelectListItem>();
+                @foreach (var student in Model.students)
+                {
+                    listAllItems.Add(new SelectListItem
+                {
+                    Text = @student.Firstname + " " + student.Lastname,
+                    Value = @student.Id.ToString()
+                });
+
+                }
+            }
+
+            @Html.DropDownList("studentid", listAllItems, new { @class = "form-control" })
+
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="courseid" class="col-md-1 col-form-label">Subject:</label>
+        <div>
+
+            @{
+                List<SelectListItem> listItems = new List<SelectListItem>();
+                @foreach (var course in Model.courses)
+                {
+                    listItems.Add(new SelectListItem
+                {
+                    Text = @course.Description,
+                    Value = @course.Id.ToString()
+                });
+
+                }
+            }
+
+            @Html.DropDownList("courseid", listItems, new { @class = "form-control" })
+
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="offset-md-1 col-md-3 d-grid">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+
+        <div class="offset-md-1 col-md-3 d-grid">
+            <a href="/StudentCourses/Index" role="button" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+
+</form>

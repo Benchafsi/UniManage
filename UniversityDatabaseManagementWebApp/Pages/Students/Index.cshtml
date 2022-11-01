@@ -1,0 +1,39 @@
+﻿@page
+@model UniversityDatabaseManagementWebApp.Pages.Students.IndexModel
+@{
+}
+
+<h2 class="text-center text-decoration-underline text-light">UNDERGRADUATES</h2>
+
+<a class="btn btn-outline-warning fw-bold btn-sm"
+href="/Students/Create">Add Undergraduate</a>
+
+<table class="table table-dark table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+        </tr>
+    </thead>
+    <tbdody>
+        @if (Model.students is not null)
+        {
+            @foreach (var student in Model.students)
+            {
+                <tr>
+                    <td>@student.Id</td>
+                    <td>@student.Firstname</td>
+                    <td>@student.Lastname</td>
+                    <td>
+                        <a class="btn btn-outline-info fw-bold btn-sn"
+                        href="/Students/Update?id=@student.Id">Update</a>
+
+                        <a class="btn btn-outline-danger fw-bold btn-sn" onclick="return confirm('This action will delete the specific and all related records. Are you sure you want to proceed?')" href="/Students/Delete?id=@student.Id">Delete</a>
+                    </td>
+                </tr>
+
+            }
+        }
+    </tbdody>
+</table>
